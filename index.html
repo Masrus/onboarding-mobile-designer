@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Онбординг — продуктовый дизайнер, Mobile</title>
+<style>
+  :root{
+    --ink:#1d1d1f;
+    --ink-soft:#494b50;
+    --ink-faint:#86868b;
+    --line:#e3e3e5;
+    --bg:#ffffff;
+    --bg-alt:#f5f5f7;
+    --link:#0071e3;
+    --warm:#fffaf2;
+    --warm-ink:#b25000;
+    --max:680px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#f5f5f7; --ink-soft:#c2c2c6; --ink-faint:#8a8a8f;
+      --line:#2e2e30; --bg:#111112; --bg-alt:#1c1c1e;
+      --link:#4a9dee; --warm:#241a0d; --warm-ink:#e8a15a;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#f5f5f7; --ink-soft:#c2c2c6; --ink-faint:#8a8a8f;
+    --line:#2e2e30; --bg:#111112; --bg-alt:#1c1c1e;
+    --link:#4a9dee; --warm:#241a0d; --warm-ink:#e8a15a;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    letter-spacing:-0.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+
+  header{padding:14vh 0 8vh}
+  h1{
+    font-size:clamp(40px,8vw,64px);
+    line-height:1.04;
+    letter-spacing:-0.03em;
+    font-weight:600;
+    margin:0 0 22px;
+  }
+  .lede{font-size:21px;line-height:1.45;color:var(--ink-soft);margin:0 0 14px;letter-spacing:-0.015em}
+  .lede.small{font-size:19px;color:var(--ink-faint)}
+
+  section{padding:7vh 0;border-top:1px solid var(--line)}
+  h2{
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink-faint);
+    letter-spacing:0.01em;
+    margin:0 0 28px;
+  }
+  h3{
+    font-size:27px;
+    line-height:1.2;
+    letter-spacing:-0.022em;
+    font-weight:600;
+    margin:0 0 14px;
+  }
+  p{margin:0 0 18px}
+  .big{
+    font-size:27px;
+    line-height:1.28;
+    letter-spacing:-0.022em;
+    font-weight:600;
+    margin:0 0 20px;
+  }
+  strong{font-weight:600}
+  a{color:var(--link);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{
+    font-family:ui-monospace,"SF Mono",Menlo,monospace;
+    font-size:0.9em;
+    background:var(--bg-alt);
+    padding:2px 6px;
+    border-radius:6px;
+    letter-spacing:0;
+  }
+  .quote{
+    color:var(--ink-soft);
+    border-left:2px solid var(--line);
+    padding-left:20px;
+    margin:0 0 20px;
+  }
+  .block{margin:0 0 52px}
+  .block:last-child{margin-bottom:0}
+  .kicker{font-size:15px;color:var(--ink-faint);margin:0 0 6px}
+  .day-meta{font-size:15px;color:var(--ink-faint);margin:-8px 0 16px}
+
+  ul.plain{list-style:none;padding:0;margin:0 0 20px}
+  ul.plain li{padding:0 0 13px 0;color:var(--ink-soft)}
+  ul.plain li:last-child{padding-bottom:0}
+  ul.plain li strong{color:var(--ink)}
+
+  ol.steps{list-style:none;counter-reset:s;padding:0;margin:0}
+  ol.steps li{counter-increment:s;position:relative;padding:0 0 22px 44px;margin:0;color:var(--ink-soft)}
+  ol.steps li strong{color:var(--ink)}
+  ol.steps li::before{
+    content:counter(s);
+    position:absolute;left:0;top:1px;
+    width:28px;height:28px;border-radius:50%;
+    background:var(--bg-alt);color:var(--ink-faint);
+    font-size:14px;font-weight:600;
+    display:flex;align-items:center;justify-content:center;
+  }
+
+  .checks{margin:0 0 8px}
+  .chk{
+    display:flex;gap:13px;align-items:flex-start;
+    padding:13px 0;border-bottom:1px solid var(--line);
+  }
+  .chk:first-child{border-top:1px solid var(--line)}
+  .chk input{
+    margin:5px 0 0;flex-shrink:0;
+    width:17px;height:17px;accent-color:var(--link);cursor:pointer;
+  }
+  .chk label{cursor:pointer;line-height:1.45}
+  .chk .hint{color:var(--ink-faint);font-size:15px}
+  .chk.done label{color:var(--ink-faint);text-decoration:line-through}
+  .chk.done .hint{text-decoration:none}
+  .subhead{font-size:15px;color:var(--ink-faint);margin:30px 0 0}
+
+  .row{
+    display:grid;grid-template-columns:150px 1fr;gap:16px;
+    padding:13px 0;border-bottom:1px solid var(--line);
+    align-items:baseline;
+  }
+  .row:first-of-type{border-top:1px solid var(--line)}
+  .row .k{font-weight:600;font-size:16px}
+  .row .v{color:var(--ink-soft);font-size:16px}
+
+  .stage{padding:20px 0 22px;border-bottom:1px solid var(--line)}
+  .stage:first-of-type{border-top:1px solid var(--line)}
+  .stage.core{background:var(--warm);margin:0 -20px;padding:20px;border-radius:14px;border-bottom:none}
+  .stage-n{font-size:15px;color:var(--ink-faint);margin:0 0 2px}
+  .stage h4{font-size:21px;font-weight:600;letter-spacing:-0.018em;margin:0 0 12px;line-height:1.25}
+  .stage .pair{font-size:16px;color:var(--ink-soft);margin:0 0 6px}
+  .stage .pair b{color:var(--ink);font-weight:600}
+  .stage .m{margin-top:14px;padding-top:14px;border-top:1px solid var(--line)}
+  .stage.core .m{border-top-color:rgba(178,80,0,.18)}
+  .stage .m-label{font-size:13px;font-weight:600;color:var(--ink-faint);margin:0 0 8px}
+  .stage.core .m-label{color:var(--warm-ink)}
+  .stage .m-item{font-size:16px;color:var(--ink-soft);margin:0 0 7px;line-height:1.5}
+  .stage .m-item b{color:var(--ink);font-weight:600}
+  .stage .res{margin-top:12px;font-size:16px;color:var(--ink-faint)}
+  .stage .res b{color:var(--ink-soft);font-weight:600}
+
+  .stat{background:var(--bg-alt);border-radius:18px;padding:26px;margin:0 0 22px}
+  .stat p{margin:0;color:var(--ink-soft)}
+  .stat p:first-child{color:var(--ink);font-weight:600;margin-bottom:8px}
+
+  .t{
+    color:var(--link);cursor:pointer;
+    border-bottom:1px dotted rgba(0,113,227,.45);
+    white-space:nowrap;
+  }
+  .t:hover{border-bottom-style:solid}
+  #pop{
+    position:absolute;max-width:300px;
+    background:rgba(30,30,32,.97);color:#f5f5f7;
+    font-size:15px;line-height:1.45;padding:13px 16px;
+    border-radius:14px;box-shadow:0 12px 34px rgba(0,0,0,.24);
+    z-index:50;display:none;letter-spacing:-0.005em;
+  }
+  #pop b{display:block;font-weight:600;margin-bottom:3px}
+
+  footer{border-top:1px solid var(--line);padding:6vh 0 12vh;color:var(--ink-faint);font-size:15px}
+
+  .switch{
+    position:sticky;top:0;z-index:40;
+    display:flex;gap:4px;
+    background:var(--bg-alt);
+    border-radius:999px;
+    padding:5px;
+    margin:0 0 2vh;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .switch::-webkit-scrollbar{display:none}
+  .seg{
+    flex:1 0 auto;
+    border:0;background:transparent;
+    font-family:inherit;font-size:15px;font-weight:500;
+    letter-spacing:-0.01em;
+    color:var(--ink-soft);
+    padding:9px 18px;border-radius:999px;
+    cursor:pointer;white-space:nowrap;
+    transition:background .25s,color .25s;
+  }
+  .seg:hover{color:var(--ink)}
+  .seg.active{background:var(--ink);color:var(--bg);font-weight:600}
+  .view{display:none}
+  .view.active{display:block}
+  .view > section:first-child{border-top:none}
+
+  @media (max-width:600px){
+    body{font-size:16px}
+    header{padding:9vh 0 6vh}
+    .lede{font-size:19px}
+    .big,h3{font-size:23px}
+    .stage h4{font-size:19px}
+    .row{grid-template-columns:1fr;gap:2px}
+    .stage.core{margin:0;padding:18px}
+    .seg{font-size:14px;padding:8px 14px}
+    .switch{margin-bottom:0}
+  }
+</style>
+</head>
+<body>
+<div id="pop"></div>
+
+<div class="wrap">
+
+<header>
+  <h1>Онбординг<br>Дизайнер, Mobile</h1>
+  <p class="lede">Первая неделя в команде дизайна cTrader: с кем познакомиться, что поставить, как мы ведём задачи и где искать контекст.</p>
+  <p class="lede small">Подчёркнутые термины кликабельны — короткая расшифровка прямо на странице.</p>
+</header>
+
+<nav class="switch">
+  <button class="seg active" data-v="week">Первая неделя</button>
+  <button class="seg" data-v="flow">Как мы работаем</button>
+  <button class="seg" data-v="figma">Figma</button>
+  <button class="seg" data-v="kb">Где что искать</button>
+</nav>
+
+<div class="view active" id="v-week">
+
+<section>
+  <h2>День 1 · Доступы</h2>
+
+  <p class="big">Начнём с доступов.</p>
+  <p>Отмечай по мере получения. Что-то может прийти не в первый день — если чего-то не хватает, напиши HR или Александру.</p>
+
+  <div class="checks">
+    <div class="chk"><input type="checkbox" id="a1"><label for="a1">Рабочая Google-почта <span class="hint">— на неё приходят уведомления из <span class="t" data-t="yt">YouTrack</span></span></label></div>
+    <div class="chk"><input type="checkbox" id="a3"><label for="a3">YouTrack <span class="hint">— проекты <span class="t" data-t="dt">Design Team</span>, в первую очередь <span class="t" data-t="md">MD</span></span></label></div>
+    <div class="chk"><input type="checkbox" id="a4"><label for="a4">Figma — команда <a href="https://www.figma.com/files/1319594932253726065/team/1319984029441159338" target="_blank">Designers</a></label></div>
+    <div class="chk"><input type="checkbox" id="a5"><label for="a5">VPN <span class="hint">— <a href="https://docs.google.com/document/d/1PV8mOzwxy8EsVnvHBqOd4dQQ76HICid62UAaef-lIjc/edit" target="_blank">инструкция</a>, нужен для тестового стенда и внутренних ресурсов</span></label></div>
+    <div class="chk"><input type="checkbox" id="a6"><label for="a6">Telegram, чат «Inside SW» <span class="hint">— в остальные рабочие чаты добавят постепенно</span></label></div>
+    <div class="chk"><input type="checkbox" id="a8"><label for="a8"><span class="t" data-t="mobbin">Mobbin</span> <span class="hint">— общий аккаунт команды, креды лежат в чате дизайнеров</span></label></div>
+  </div>
+
+  <p class="subhead">Рассказать о себе:</p>
+  <div class="checks">
+    <div class="chk"><input type="checkbox" id="a2"><label for="a2">Профиль на <a href="https://spotware.peopleforce.io/" target="_blank">spotware.peopleforce.io</a> <span class="hint">— заполнить данные о себе</span></label></div>
+    <div class="chk"><input type="checkbox" id="a13"><label for="a13">Профиль в Figma <span class="hint">— аватарка и должность, чтобы в файлах было видно, кто над чем работает</span></label></div>
+  </div>
+
+  <p class="subhead">Три токена под <span class="t" data-t="maestro">Maestro</span>:</p>
+  <div class="checks">
+    <div class="chk"><input type="checkbox" id="a10"><label for="a10">Permanent token в YouTrack <span class="hint">— Profile → Account Security → Permanent Tokens</span></label></div>
+    <div class="chk"><input type="checkbox" id="a11"><label for="a11">GitLab personal access token <span class="hint">— имя ctrader-maestro-mcp, scopes read_api + read_repository, срок год</span></label></div>
+    <div class="chk"><input type="checkbox" id="a12"><label for="a12">Cloudflare team passphrase <span class="hint">— для деплоя вайрфреймов, у Александра</span></label></div>
+  </div>
+
+  <p style="margin-top:30px">Технику, лицензии и софт заказываем задачей в YouTrack на проект <strong>NOC</strong> — пригодится и потом, не только на старте.</p>
+</section>
+
+<section>
+  <h2>Дни 1–2 · Люди и продукт</h2>
+
+  <p class="big">Команда — девять человек, включая тебя.</p>
+  <p>Полный список с зонами ответственности ниже, в разделе «Команда». На этой неделе важнее два человека: Ирина и Валерия — твои прямые коллеги по мобильному направлению.</p>
+
+  <ul class="plain">
+    <li><strong>Первый 1:1 с Александром</strong> — зона ответственности и ожидания. Дальше 1:1 раз в неделю: рабочие и нерабочие вопросы, планы. По проектам встречаемся по необходимости.</li>
+    <li><strong>Пятничная встреча команды</strong> — общий сбор, там штурмим и обсуждаем изменения. Тебя добавят, поставь в календарь.</li>
+  </ul>
+
+  <p class="subhead" style="margin-top:34px">Пройди cTrader как пользователь — половина задач первого месяца будет про эти экраны:</p>
+  <div class="checks">
+    <div class="chk"><input type="checkbox" id="b1"><label for="b1">Поставить приложение и пройти регистрацию целиком</label></div>
+    <div class="chk"><input type="checkbox" id="b2"><label for="b2">Завести демо-счёт</label></div>
+    <div class="chk"><input type="checkbox" id="b3"><label for="b3">Посмотреть watchlist</label></div>
+    <div class="chk"><input type="checkbox" id="b4"><label for="b4">Посмотреть чарт и торговлю с графика</label></div>
+    <div class="chk"><input type="checkbox" id="b5"><label for="b5">Пройти создание ордера</label></div>
+  </div>
+
+  <p class="subhead" style="margin-top:34px">Курс от HR — придёт письмом на рабочую почту:</p>
+  <div class="checks">
+    <div class="chk"><input type="checkbox" id="b6"><label for="b6">Начать курс <span class="hint">— можно проходить фоном в течение недели</span></label></div>
+    <div class="chk"><input type="checkbox" id="b7"><label for="b7">Закончить курс</label></div>
+  </div>
+</section>
+
+<section>
+  <h2>Дни 2–3 · Дизайн-система</h2>
+
+  <p class="big">У нас две дизайн-системы.</p>
+  <p><strong><span class="t" data-t="summer">DS cTrader Summer 2025</span></strong> — то, что реально используется в cTrader. Источник правды для продуктовых задач.</p>
+  <p><strong><span class="t" data-t="atlas">Atlas</span></strong> — новая, заточенная под AI. Должна повторять Summer 2025, но местами уже разъехалась.</p>
+
+  <p class="quote">Видишь расхождение между ними — считай правильным Summer 2025 и скажи команде.</p>
+
+  <p style="margin-top:34px">Три правила, про которые стоит знать заранее:</p>
+  <ul class="plain">
+    <li><strong>Компоненты с 🚫 — deprecated.</strong> У каждого есть замена в той же библиотеке.</li>
+    <li><strong><code>accent/*</code> — только семантика.</strong> P&amp;L, ошибки, buy/sell. Не обычное selected-состояние.</li>
+    <li><strong>Слои фона идут по порядку:</strong> background/secondary → background/primary → buttonBackground/*.</li>
+  </ul>
+
+  <p style="margin-top:34px">Файлы в Figma организованы по <span class="t" data-t="jtbd">JTBD</span>-сценариям: Discovery, Trading from Watchlist, Chart Trading, Positions / Modify, Algo, Control. Структура папок команды — в разделе «Figma» ниже.</p>
+</section>
+
+<section>
+  <h2>Дни 3–4 · Процесс и Maestro</h2>
+
+  <p class="big">Maestro и Figma — оба с первой недели.</p>
+  <p>Полный процесс — в следующем разделе. Здесь то, что нужно сделать руками.</p>
+
+  <ol class="steps">
+    <li><strong>Поставь Maestro</strong> — <code>curl -fsSL https://ctrader-maestro.pages.dev/install.sh | sh</code>. Инсталлятор поднимет зависимости и спросит токены из Дня 1.</li>
+    <li><strong>Прогони <code>/cortana</code></strong> на маленькой учебной фиче — увидишь весь цикл: спек → вопросы → вайрфрейм.</li>
+    <li><strong>Сделай вайрфрейм через <code>/studio-mobile</code></strong> и задеплой его через <code>/studio-deploy</code>. Это твой <span class="t" data-t="lane">лейн</span>.</li>
+    <li><strong>Прочитай пару эталонных тикетов</strong> в <code>knowledge-base/examples/yt-tickets/</code> — принятый у нас стиль постановки.</li>
+    <li><strong>Посмотри <a href="https://docs.google.com/spreadsheets/d/1DGNITe_tW3OqsJY0zDqxb6FjosqfMZhM9-J9RyLAlHk/edit?gid=586685272#gid=586685272" target="_blank">OKR и отчёты команды</a></strong> — чем мы живём в этом квартале.</li>
+    <li><strong>Загляни на <a href="https://masrus.github.io/ai-in-design-team/" target="_blank">ai-in-design-team</a></strong> — что уже собрано командой вокруг AI.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>Первая задача</h2>
+
+  <div class="stat">
+    <p>Возьми небольшую задачу и проведи её целиком по процессу.</p>
+    <p>Включая блок-схему и вайрфреймы до макета — на этих двух шагах становится видно, как задача устроена целиком.</p>
+  </div>
+
+  <ul class="plain">
+    <li>Покажи драфт команде на промежуточном этапе — так удобнее обсуждать.</li>
+    <li>В пятницу — первое участие в общей встрече.</li>
+    <li>В конце недели 1:1: что зашло, что непонятно, чего не хватает по доступам.</li>
+  </ul>
+</section>
+</div>
+
+<div class="view" id="v-flow">
+<section>
+  <h2>Как мы работаем над фичей</h2>
+
+  <p class="big">Шесть этапов от брифа до дизайн-ревью.</p>
+  <p>Полная версия с анимацией — <a href="https://masrus.github.io/ai-first-design-workflow/" target="_blank">ai-first-design-workflow</a>. Отличает нас от обычного процесса третий этап.</p>
+
+  <div id="stages"></div>
+</section>
+</div>
+
+<div class="view" id="v-figma">
+
+<section>
+  <h2>Figma · структура команды</h2>
+
+  <p class="big">Команда <a href="https://www.figma.com/files/1319594932253726065/team/1319984029441159338" target="_blank">Designers</a> — двадцать папок. Тебе нужны три.</p>
+
+  <p class="kicker" style="margin-top:34px">Основное</p>
+  <div class="row"><span class="k">Design System Mobile</span><span class="v">DESIGN SYSTEM, Atlas DS, Landings Framework</span></div>
+  <div class="row"><span class="k">📱 MOBILE</span><span class="v">Algo mobile, AI Assistant, cTrader Lite — продуктовые файлы направления</span></div>
+  <div class="row"><span class="k">BA</span><span class="v">cTrader Mobile — рабочие файлы дизайнеров</span></div>
+
+  <p class="kicker" style="margin-top:38px">Рядом и полезно</p>
+  <div class="row"><span class="k">Sandbox DTC</span><span class="v">Наш собственный брокер — Product, Drafts, Prototypes</span></div>
+  <div class="row"><span class="k">.for work</span><span class="v">Рабочие черновики</span></div>
+  <div class="row"><span class="k">Copy</span><span class="v">Web mobile copy portfolio — тексты</span></div>
+  <div class="row"><span class="k">MacOS</span><span class="v">cTrader Mac, DS macOS, macOS Tahoe UI Kit</span></div>
+  <div class="row"><span class="k">Desktop &amp; Web</span><span class="v">cT Web Mobile, cTrader Crypto, cT Web &amp; Desktop</span></div>
+
+  <p class="kicker" style="margin-top:38px">Другие направления</p>
+  <div class="row"><span class="k">🎁 STORE</span><span class="v">Landing pages, DS Store 2026, Catalog</span></div>
+  <div class="row"><span class="k">Marketing</span><span class="v">Northwind Markets, Email templates</span></div>
+  <div class="row"><span class="k">cTrader Admin</span><span class="v">Брокерский бэк-офис</span></div>
+  <div class="row"><span class="k">Presentations</span><span class="v">Презентации команды</span></div>
+  <div class="row"><span class="k">Прочее</span><span class="v">Algo, API, Mailer, ID SITE, Spotware.com, cTrader.com, HR — обновляются редко</span></div>
+</section>
+</div>
+
+<div class="view" id="v-kb">
+<section>
+  <h2>Команда</h2>
+
+  <div class="row"><span class="k">Александр Мамырин</span><span class="v">Head of Iterative Design and Conversion — руководитель, @mamyrin</span></div>
+  <div class="row"><span class="k">Irina Sidorova</span><span class="v">Product Designer — мобильное направление, команда Growe</span></div>
+  <div class="row"><span class="k">Valeriia Bulgakova</span><span class="v">Product Designer — мобильная команда</span></div>
+  <div class="row"><span class="k">Polina Krasnova</span><span class="v">UX Researcher — к ней за исследованиями и тестированием интерфейсов</span></div>
+  <div class="row"><span class="k">Radzivon Obukh</span><span class="v">Product Designer — отвечает за большинство AI-активностей команды</span></div>
+  <div class="row"><span class="k">Vitaly Savinovskiy</span><span class="v">Product Designer — <span class="t" data-t="cbridge">cBridge</span> и Sandbox</span></div>
+  <div class="row"><span class="k">Anna Bolsheshapova</span><span class="v">Product Designer — партайм, работает на cBridge</span></div>
+  <div class="row"><span class="k">Polina Korchuganova</span><span class="v">Product Designer</span></div>
+  <div class="row"><span class="k">Artem Nabokov</span><span class="v">Product Designer</span></div>
+</section>
+
+<section>
+  <h2>Где что искать</h2>
+
+  <p class="big">Задачи живут в YouTrack, в группе проектов Design Team.</p>
+  <p>Твой основной — <strong>MD</strong>. Остальные полезно знать: по ним видно, куда смотреть, когда вопрос выходит за мобайл.</p>
+
+  <div class="row"><span class="k"><a href="https://yt.ctrader.com/projects/MD" target="_blank">MD</a> · Design Mobile</span><span class="v">Мобильные приложения. Твой дом.</span></div>
+  <div class="row"><span class="k"><a href="https://yt.ctrader.com/projects/DSGN" target="_blank">DSGN</a> · Design</span><span class="v">Общий дизайнерский проект и база знаний команды.</span></div>
+  <div class="row"><span class="k"><a href="https://yt.ctrader.com/projects/DSB" target="_blank">DSB</a> · Design: Sandbox</span><span class="v">Наш собственный брокер.</span></div>
+  <div class="row"><span class="k"><a href="https://yt.ctrader.com/projects/DWM" target="_blank">DWM</a> · Design: cTrader Web, Mac, Windows</span><span class="v">Всё по десктопному cTrader.</span></div>
+  <div class="row"><span class="k"><a href="https://yt.ctrader.com/projects/DST" target="_blank">DST</a> · Design: Store</span><span class="v">Веб-стор и стор внутри приложения.</span></div>
+  <div class="row"><span class="k"><a href="https://yt.ctrader.com/projects/DC" target="_blank">DC</a> · Design: cAdmin</span><span class="v">Брокерский бэк-офис, там же cBridge.</span></div>
+  <div class="row"><span class="k"><a href="https://yt.ctrader.com/projects/XD" target="_blank">XD</a> · Branding Design</span><span class="v">Только брендинг и подготовка презентаций.</span></div>
+
+
+  <p class="kicker" style="margin-top:38px">Остальные системы</p>
+  <div class="row"><span class="k">Макеты и DS</span><span class="v"><a href="https://www.figma.com/files/1319594932253726065/team/1319984029441159338" target="_blank">Figma · Designers</a></span></div>
+  <div class="row"><span class="k">HR-портал</span><span class="v"><a href="https://spotware.peopleforce.io/" target="_blank">PeopleForce</a> — профиль, отпуска, документы, performance</span></div>
+  <div class="row"><span class="k">OKR и отчёты</span><span class="v"><a href="https://docs.google.com/spreadsheets/d/1DGNITe_tW3OqsJY0zDqxb6FjosqfMZhM9-J9RyLAlHk/edit?gid=586685272#gid=586685272" target="_blank">Таблица команды</a></span></div>
+  <div class="row"><span class="k">Быстрые вопросы</span><span class="v">Telegram «Inside SW»</span></div>
+  <div class="row"><span class="k">Ретро и доски</span><span class="v">Miro</span></div>
+
+  <p class="kicker" style="margin-top:38px">Внутри Maestro</p>
+  <div class="row"><span class="k">База знаний</span><span class="v"><code>knowledge-base/</code> — company, principles, users, team-learnings</span></div>
+  <div class="row"><span class="k">Глоссарий</span><span class="v"><code>knowledge-base/domain.md</code> — трейдинговые термины, пригодится в первые недели</span></div>
+  <div class="row"><span class="k">Каталог компонентов</span><span class="v"><code>studio/.ds-catalog.md</code> — источник правды по пропсам Atlas</span></div>
+
+  <p class="kicker" style="margin-top:38px">Референсы</p>
+  <div class="row"><span class="k">iOS</span><span class="v"><a href="https://developer.apple.com/design/human-interface-guidelines/designing-for-ios" target="_blank">Apple HIG</a></span></div>
+  <div class="row"><span class="k">Apple ресурсы</span><span class="v"><a href="https://developer.apple.com/design/resources/" target="_blank">SF Pro и другое</a></span></div>
+  <div class="row"><span class="k">Android</span><span class="v"><a href="https://m3.material.io/" target="_blank">Material Design 3</a></span></div>
+  <div class="row"><span class="k">Иконки</span><span class="v"><a href="https://fonts.google.com/icons" target="_blank">Google Fonts Icons</a></span></div>
+  <div class="row"><span class="k">Мудборд команды</span><span class="v"><a href="https://ru.pinterest.com/mamyrin/mood-board-sw/" target="_blank">Pinterest</a></span></div>
+</section>
+</div>
+
+<footer>
+  Спрашивай — команда рядом, и вопросы в первые недели это нормальная часть работы.
+</footer>
+
+</div>
+
+<script>
+const stages = [
+  {n:"01", t:"Бриф", s:"Постановка задачи",
+   p:"Согласованы проблема, цели и ограничения.",
+   d:"Понятны рамки и ограничения.",
+   r:"Согласованный бриф, общее понимание задачи и скоупа."},
+  {n:"02", t:"Ресёрч", s:"Поиск информации, исследование",
+   p:"Проблема изучена, намечены варианты.",
+   d:"Варианты изучены, понятны реализуемые направления.",
+   ml:"Метод",
+   m:[["AI Maestro","прогнать постановку через Maestro — выявить ключевые вопросы и пробелы."],
+      ["Синк с аналитиком или продактом","обсудить результаты и понимание задачи."]],
+   r:"Саммари ресёрча, зафиксированы реализуемые направления."},
+  {n:"03", t:"Концепты и драфты", s:"Основная работа", core:true,
+   p:"Варианты рассмотрены, выбрано направление.",
+   d:"Варианты проверены, выбрано решение.",
+   ml:"Метод Progressive JPG",
+   m:[["Блок-схемы","схема переходов — понять объём работы и взаимосвязи до любой визуализации."],
+      ["Схемы страниц","лоу-фай макеты с очевидными переходами, уровень Balsamiq."],
+      ["AI-драфт","скармливаем дизайн-систему и результат шага 2, обсуждаем результат с командой."]],
+   r:"Согласованное направление, драфт принят командой."},
+  {n:"04", t:"Дизайн", s:"Макеты основного сценария",
+   p:"Уточнены флоу и требования.",
+   d:"Флоу и экраны доработаны, готово к передаче.",
+   r:"Финальные макеты основного пользовательского флоу."},
+  {n:"05", t:"Передача в разработку", s:"",
+   p:"Спеки согласованы, готово к разработке.",
+   d:"Спеки и ассеты готовы, поддержка разработки.",
+   r:"Проработаны все сценарии и корнер-кейсы, ассеты переданы."},
+  {n:"06", t:"Дизайн-ревью", s:"Контроль качества",
+   p:"Реализация проверена по спекам.",
+   d:"Разработка проверена, расхождения зафиксированы и устранены.",
+   r:"Разработка принята, качество подтверждено, задача закрыта."}
+];
+
+const se = document.getElementById('stages');
+stages.forEach(s => {
+  const d = document.createElement('div');
+  d.className = 'stage' + (s.core ? ' core' : '');
+  let h = `<p class="stage-n">${s.n}${s.core ? ' · Основной этап' : ''}</p>`;
+  h += `<h4>${s.t}${s.s ? ' <span style="font-weight:400;color:var(--ink-faint)">· ' + s.s + '</span>' : ''}</h4>`;
+  h += `<p class="pair"><b>Продакт:</b> ${s.p}</p>`;
+  h += `<p class="pair"><b>Дизайн:</b> ${s.d}</p>`;
+  if (s.m) {
+    h += `<div class="m"><p class="m-label">${s.ml}</p>`;
+    s.m.forEach((it, i) => { h += `<p class="m-item"><b>${i+1}. ${it[0]}</b> — ${it[1]}</p>`; });
+    h += `</div>`;
+  }
+  h += `<p class="res"><b>Результат:</b> ${s.r}</p>`;
+  d.innerHTML = h;
+  se.appendChild(d);
+});
+
+const G = {
+  yt:["YouTrack","Наш таск-трекер. Живёт на yt.ctrader.com, там же база знаний по проектам."],
+  dt:["Design Team","Группа из семи дизайнерских проектов в YouTrack: MD, DSGN, DSB, DWM, DST, DC, XD. Полный разбор — в разделе «Где что искать»."],
+  md:["MD","Design Mobile — дизайнерские задачи по мобильным приложениям. Твой основной проект."],
+  mobbin:["Mobbin","Библиотека скриншотов реальных приложений. Удобно смотреть, как конкуренты решают конкретный экран."],
+  maestro:["Maestro","Наш AI-ассистент: исследует задачу, собирает спек, генерирует вайрфреймы и публикует их в YouTrack. Ставится одной командой, дальше работает из терминала."],
+  lane:["Лейн","Направление внутри Studio — движка вайрфреймов Maestro. У каждой платформы свой: mobile, desktop, cadmin, store, general, product."],
+  summer:["DS cTrader Summer 2025","Основная мобильная дизайн-система. То, что реально стоит в продукте, — при любых сомнениях правильный ответ здесь."],
+  atlas:["Atlas","Новая дизайн-система, заточенная под работу с AI. Задумана как копия Summer 2025, но на практике местами разошлась."],
+  jtbd:["JTBD","Jobs to be Done. Файлы сгруппированы не по экранам, а по задачам пользователя: найти инструмент, торговать из вотчлиста, торговать с графика."],
+  cbridge:["cBridge","Брокерский продукт Spotware. Продаётся отдельно от торговой платформы, у него своя аудитория — риск-менеджеры и дилеры."]
+};
+const pop = document.getElementById('pop');
+let open = null;
+
+function show(el){
+  const d = G[el.dataset.t];
+  if(!d) return;
+  pop.innerHTML = '<b>'+d[0]+'</b>'+d[1];
+  pop.style.display = 'block';
+  const r = el.getBoundingClientRect();
+  const w = pop.offsetWidth;
+  let left = r.left + window.scrollX + r.width/2 - w/2;
+  left = Math.max(14, Math.min(left, document.documentElement.clientWidth - w - 14));
+  let top = r.bottom + window.scrollY + 9;
+  if(r.bottom + pop.offsetHeight + 20 > window.innerHeight){
+    top = r.top + window.scrollY - pop.offsetHeight - 9;
+  }
+  pop.style.left = left+'px';
+  pop.style.top = top+'px';
+  open = el;
+}
+function hide(){ pop.style.display='none'; open=null; }
+
+document.querySelectorAll('.t').forEach(el=>{
+  el.addEventListener('click', e=>{
+    e.stopPropagation();
+    if(open === el){ hide(); } else { show(el); }
+  });
+});
+document.addEventListener('click', hide);
+window.addEventListener('resize', hide);
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') hide(); });
+
+document.querySelectorAll('.seg').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    hide();
+    document.querySelectorAll('.seg').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('v-'+btn.dataset.v).classList.add('active');
+    window.scrollTo({top:0});
+  });
+});
+
+const KEY = 'onboarding-mobile-access';function load(){ try { return JSON.parse(localStorage.getItem(KEY)) || {}; } catch(e){ return {}; } }
+function save(s){ try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e){} }
+const st = load();
+document.querySelectorAll('.chk input').forEach(box => {
+  if (st[box.id]) { box.checked = true; box.closest('.chk').classList.add('done'); }
+  box.addEventListener('change', () => {
+    box.closest('.chk').classList.toggle('done', box.checked);
+    const s = load(); s[box.id] = box.checked; save(s);
+  });
+});
+</script>
+</body>
+</html>
